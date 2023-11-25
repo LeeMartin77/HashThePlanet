@@ -6,7 +6,6 @@
 
 
     const cost = (res: Resource, currentCount: number) => {
-        console.log(currentCount)
         if (!currentCount) {
             return res.baseCost;
         }
