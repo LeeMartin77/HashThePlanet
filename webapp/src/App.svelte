@@ -1,17 +1,20 @@
 <script lang="ts">
   import "carbon-components-svelte/css/g100.css";
   import HashButton from "./lib/HashButton.svelte";
-  import { hashCount, hashRate, view, sidebarOpen } from "./lib/stores";
+  import { hashCount, hashRate, view } from "./lib/stores";
   import type { Views } from './lib/stores';
   import {
     Header, Button,
     Grid, Row, Column,
-    HeaderAction, SideNav, SideNavItems, Content,
+    HeaderAction, SideNavItems, Content,
      SideNavMenuItem, Theme
 
 } from 'carbon-components-svelte';
+    import HomeView from "./lib/HomeView.svelte";
+    import UpgradesView from "./lib/UpgradesView.svelte";
+    import ResourcesView from "./lib/ResourcesView.svelte";
 
-const menuViews: Views[] = ['Home', 'Upgrades']
+const menuViews: Views[] = ['Home', 'Upgrades', 'Resources']
 
 </script>
 
@@ -34,19 +37,14 @@ const menuViews: Views[] = ['Home', 'Upgrades']
       </SideNavItems>
     </HeaderAction>
   </Header>
-  <HashButton />
 </Theme>
 <Content>
-  <Grid fullWidth>
-    <Row>
-      <Column>
-      </Column>
-    </Row>
-    {#if $view === 'Home'}
-      <p>Count is: </p>
-      <p>Hashrate is: </p>
-    {:else if $view === 'Upgrades'}
-      <div>Upgrades here</div>
-    {/if}
-  </Grid>
+  <HashButton />
+  {#if $view === 'Home'}
+    <HomeView />
+  {:else if $view === 'Upgrades'}
+    <UpgradesView />
+  {:else if $view === 'Resources'}
+    <ResourcesView />
+  {/if}
 </Content>

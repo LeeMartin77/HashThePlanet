@@ -1,20 +1,36 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
+import { gameResources } from './entities';
 
 export const hashCount = writable(0);
+export const laggedHashCount = writable(0);
+export const lifetimeHashCount = writable(0);
 export const hashRate = writable(0);
 
-hashCount.subscribe((value) => {
-	//console.log(value);
-}); // logs '0'
-// We are gonna go "old school"
+export const manualHashValue = writable(1);
 
-export type Views = 'Home' | 'Upgrades'
+export const resources = writable({} as { [key: string]: number })
+
+hashCount.subscribe((value) => {
+	const prev = get(laggedHashCount);
+	if(prev < value) {
+		lifetimeHashCount.update(cur => cur + (value - prev))
+	}
+	laggedHashCount.set(value);
+});
+
+export type Views = 'Home' | 'Upgrades' | 'Resources'
 
 export const view = writable('Home' as Views)
 
-export const sidebarOpen = writable(false);
+// this is the big cheese
 
-// count.set(1); // logs '1'
+const recalculateHashRates = () => {
+	// just resources for now - upgrades later.
+	const newHashRate = Object.entries(get(resources)).reduce<number>((acc, [key, count]) => {
+		return acc + (gameResources[key].baseHashRate * count)
+	}, 0)
 
-// count.update((n) => n + 1); // logs '2'
+	hashRate.set(newHashRate)
+}
 
+resources.subscribe(() => recalculateHashRates())
