@@ -3,6 +3,6 @@
   import { hashCount } from "./stores";
 </script>
 
-<Button on:click={() => {
+<Button style="width: 100%; font-weight: bold; right: 0;" on:click={() => {
   hashCount.update((hc) => hc + 1)
-}}>Primary button</Button>
+}}>HASH</Button>
