@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button } from "carbon-components-svelte";
-  import { hashCount } from "./core";
+  import { hashCount } from "./stores";
 </script>
 
 <Button on:click={() => {
