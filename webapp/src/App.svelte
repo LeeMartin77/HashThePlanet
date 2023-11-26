@@ -6,6 +6,10 @@
   import HomeView from "./lib/HomeView.svelte";
   import Home from "carbon-icons-svelte/lib/Home.svelte";
   import Tools from "carbon-icons-svelte/lib/Tools.svelte";
+  import Application from "carbon-icons-svelte/lib/Application.svelte";
+  import IntentRequestUpgrade from "carbon-icons-svelte/lib/ShoppingCatalog.svelte";
+  import UpgradesView from "./lib/UpgradesView.svelte";
+  import ResourcesView from "./lib/ResourcesView.svelte";
 
   const pageViews: Views[] = ['Home', 'Utilities'] 
 
@@ -27,6 +31,8 @@
   <SideNav bind:isOpen={isSideNavOpen} rail>
     <SideNavItems>
       <SideNavLink icon={Home} text="Home" on:click={()=> view.set('Home')}/>
+      <SideNavLink icon={Application} text="Resources" on:click={()=> view.set('Resources')}/>
+      <SideNavLink icon={IntentRequestUpgrade} text="Upgrades" on:click={()=> view.set('Upgrades')}/>
       <SideNavLink icon={Tools} text="Utilities" on:click={()=> view.set('Utilities')}/>
     </SideNavItems>
   </SideNav>
@@ -34,6 +40,10 @@
 <Content>
   {#if $view === 'Home'}
     <HomeView />
+  {:else if $view === 'Resources'}
+    <ResourcesView />
+  {:else if $view === 'Upgrades'}
+    <UpgradesView />
   {:else if $view === 'Utilities'}
     <Grid>
       <Row>
