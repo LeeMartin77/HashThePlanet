@@ -10,10 +10,10 @@ export const manualHashValue = writable(1);
 
 export const resources = writable({} as { [key: string]: number })
 export const upgrades = writable({
-	ALL: new Set(),
+	ALL: [],
 } as {
-	ALL: Set<string>,
-	[key: string]: Set<string>
+	ALL: string[],
+	[key: string]: string[]
 })
 
 hashCount.subscribe((value) => {
@@ -34,7 +34,7 @@ const recalculateHashRates = () => {
 	const upgrd = get(upgrades);
 	const newHashRate = Object.entries(get(resources)).reduce<number>((acc, [key, count]) => {
 		if (upgrd[key]) {
-			return acc + (Array.from(upgrd[key]).reduce<number>((acc, upgrdKey) => {
+			return acc + (upgrd[key].reduce<number>((acc, upgrdKey) => {
 				if (gameUpgrades[upgrdKey]) {
 					return gameUpgrades[upgrdKey].effect(acc, gameResources[key], count);
 				}

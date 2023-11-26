@@ -19,17 +19,16 @@
         const curr = get(upgrades);
         
         upgrades.update((curr) => {
-            let latest = { ...curr }
-            latest.ALL = latest.ALL.add(res.key);
+            curr.ALL.push(res.key);
             for (const affected of res.affects) {
-                if (latest[affected]) {
-                    latest[affected] = latest[affected].add(res.key);
+                if (curr[affected]) {
+                    curr[affected].push(res.key);
                 } else {
-                    latest[affected] = new Set([res.key]);
+                    curr[affected] = [res.key];
                 }
             }
 
-            return latest;
+            return curr;
         });
     }
 
@@ -42,7 +41,7 @@
     <Row>
         <Column>
             {#each Object.entries(gameUpgrades) as [, pres]}
-                {#if pres.visibleAtLifetime <= $lifetimeHashCount && pres.prerequesites.every(pr => $upgrades.ALL.has(pr))}
+                {#if !$upgrades.ALL.includes(pres.key) && pres.visibleAtLifetime <= $lifetimeHashCount && pres.prerequesites.every(pr => $upgrades.ALL.includes(pr))}
                     <Tile>
                         <h4>{pres.name}</h4>
                         {#if pres.unlocksAtLifetime > $lifetimeHashCount}
