@@ -36,10 +36,8 @@
 
 <Grid>
     <Row>
-        <h2>Upgrades</h2>
-    </Row>
-    <Row>
         <Column>
+            <h1>Upgrades</h1>
             {#each Object.entries(gameUpgrades) as [, pres]}
                 {#if !$upgrades.ALL.includes(pres.key) && pres.visibleAtLifetime <= $lifetimeHashCount && pres.prerequesites.every(pr => $upgrades.ALL.includes(pr))}
                     <Tile>

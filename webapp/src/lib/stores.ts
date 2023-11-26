@@ -54,7 +54,7 @@ hashCount.subscribe((value) => {
 	laggedHashCount = value;
 });
 
-export type Views = 'Home' | 'Upgrades' | 'Resources'
+export type Views = 'Home' | 'Upgrades' | 'Resources' | 'Utilities'
 
 export const view = writable('Home' as Views)
 

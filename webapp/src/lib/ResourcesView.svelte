@@ -37,10 +37,8 @@
 
 <Grid>
     <Row>
-        <h2>Resources</h2>
-    </Row>
-    <Row>
         <Column>
+            <h1>Resources</h1>
             {#each Object.entries(gameResources) as [, pres]}
                 {#if pres.visibleAtLifetime <= $lifetimeHashCount}
                     <Tile>
