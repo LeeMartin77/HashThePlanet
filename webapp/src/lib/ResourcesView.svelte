@@ -11,13 +11,13 @@
         return Math.floor(Math.pow(res.baseCost, (1 + (currentCount/10) * res.costMultiplier)));
     }
 
-    const canPurchase = (res: Resource, lhc: number, hc: number, cc: number): boolean => {
-        return res.unlocksAtLifetime <= lhc && hc >= cost(res, cc);
+    const canPurchase = (res: Resource, hc: number, cc: number): boolean => {
+        return hc >= cost(res, cc);
     }
 
     const purchase = (res: Resource) => {
         const currCount = get(resources)[res.key] ?? 0;
-        if (!canPurchase(res, get(lifetimeHashCount), get(hashCount), currCount)) {
+        if (!canPurchase(res, get(hashCount), currCount)) {
             return;
         }
         const payHashes = cost(res, currCount);
@@ -44,11 +44,8 @@
                 {#if pres.visibleAtLifetime <= $lifetimeHashCount}
                     <Tile>
                         <h4>{$resources[pres.key] ?? 0} {pres.name}</h4>
-                        {#if pres.unlocksAtLifetime > $lifetimeHashCount}
-                            <h6>Unlocks in {(pres.unlocksAtLifetime - $lifetimeHashCount).toFixed(0)} hashes</h6>
-                        {/if}
                         <p>Provides {pres.baseHashRate.toFixed(2)} Hashes a Second</p>
-                        <Button disabled={!canPurchase(pres, $lifetimeHashCount, $hashCount, $resources[pres.key] ?? 0)} on:click={() => purchase(pres)}>Cost: {cost(pres, $resources[pres.key] ?? 0)} Hashes</Button>
+                        <Button disabled={!canPurchase(pres, $hashCount, $resources[pres.key] ?? 0)} on:click={() => purchase(pres)}>Cost: {cost(pres, $resources[pres.key] ?? 0)} Hashes</Button>
                     </Tile>
                 {/if}
             {/each}
