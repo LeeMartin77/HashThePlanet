@@ -4,7 +4,6 @@
     import { gameResources, type Resource } from "./entities";
     import { get } from "svelte/store";
 
-
     const cost = (res: Resource, currentCount: number) => {
         if (!currentCount) {
             return res.baseCost;
@@ -46,7 +45,7 @@
                     <Tile>
                         <h4>{$resources[pres.key] ?? 0} {pres.name}</h4>
                         {#if pres.unlocksAtLifetime > $lifetimeHashCount}
-                            <h6>Unlocks in {pres.unlocksAtLifetime - $lifetimeHashCount} hashes</h6>
+                            <h6>Unlocks in {(pres.unlocksAtLifetime - $lifetimeHashCount).toFixed(0)} hashes</h6>
                         {/if}
                         <p>Provides {pres.baseHashRate.toFixed(2)} Hashes a Second</p>
                         <Button disabled={!canPurchase(pres, $lifetimeHashCount, $hashCount, $resources[pres.key] ?? 0)} on:click={() => purchase(pres)}>Cost: {cost(pres, $resources[pres.key] ?? 0)} Hashes</Button>

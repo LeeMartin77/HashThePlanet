@@ -1,13 +1,14 @@
 <script lang="ts">
   import "carbon-components-svelte/css/g100.css";
   import HashButton from "./lib/HashButton.svelte";
-  import { hashCount, hashRate, view } from "./lib/stores";
+  import { hashCount, hashRate, view, upgrades, resources } from "./lib/stores";
   import type { Views } from './lib/stores';
   import {
     Header, Button,
     Grid, Row, Column,
     HeaderAction, SideNavItems, Content,
-     SideNavMenuItem, Theme
+     SideNavMenuItem, Theme, Tile
+
 
 } from 'carbon-components-svelte';
     import HomeView from "./lib/HomeView.svelte";
@@ -39,6 +40,13 @@ const menuViews: Views[] = ['Home', 'Upgrades', 'Resources']
   </Header>
 </Theme>
 <Content>
+  <Tile>
+    <h4>Debugger</h4>
+    <h5>Upgrades</h5>
+    <pre>{JSON.stringify($upgrades, undefined, 2)}</pre>
+    <h5>Resources</h5>
+    <pre>{JSON.stringify($resources, undefined, 2)}</pre>
+  </Tile>
   <HashButton />
   {#if $view === 'Home'}
     <HomeView />
