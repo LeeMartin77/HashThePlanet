@@ -17,6 +17,8 @@ export const upgrades = writable({
 })
 
 hashCount.subscribe((value) => {
+	// we need to find a better way of doing this
+	// as this is a very hot code path!
 	const prev = get(laggedHashCount);
 	if(prev < value) {
 		lifetimeHashCount.update(cur => cur + (value - prev))
