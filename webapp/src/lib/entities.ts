@@ -14,15 +14,15 @@ export const gameResources: {[key: string] : Resource} = {
         key: 'AUTOHASH_PROGRAM',
         visibleAtLifetime: 10,
         baseHashRate: 0.1,
-        baseCost: 10,
+        baseCost: 15,
         costMultiplier: 1.1
     },
     AUTOHASH_NETWORK: {
         name: 'Networked Hasher',
         key: 'AUTOHASH_NETWORK',
-        visibleAtLifetime: 600,
+        visibleAtLifetime: 400,
         baseHashRate: 2,
-        baseCost: 750,
+        baseCost: 500,
         costMultiplier: 1.2
     }
 }
@@ -40,23 +40,23 @@ export type Upgrade = {
 }
 
 export const gameUpgrades: {[key: string] : Upgrade} = {
-    AUTOHASH_PROGRAM_V2: {
+    AUTOHASH_PATCH_1: {
         name: 'Autohash.exe Memory Patch',
         key: 'AUTOHASH_PATCH_1',
         effectSummary: 'Patches a memory leak in Autohash.exe - 50% improvement',
-        visibleAtLifetime: 5, //50
+        visibleAtLifetime: 50,
         affects: ['AUTOHASH_PROGRAM'],
         prerequesites: [],
-        cost: 4, //400
+        cost: 200,
         effect: (acc, bhr, cnt) => acc * 1.5
     },
-    AUTOHASH_PROGRAM_V3: {
+    AUTOHASH_PATCH_2: {
         name: 'Autohash.exe Multithread Enhancement',
         key: 'AUTOHASH_PATCH_2',
         effectSummary: 'Make use of all cores for hashing - doubles performance',
         visibleAtLifetime: 600,
         affects: ['AUTOHASH_PROGRAM'],
-        prerequesites: ['AUTOHASH_PROGRAM_V2'],
+        prerequesites: ['AUTOHASH_PATCH_1'],
         cost: 1500,
         effect: (acc, bhr, cnt) => acc * 2
     }
