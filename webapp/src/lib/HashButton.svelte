@@ -10,14 +10,9 @@
   font-weight: bold;
   bottom: 0;
   right: 0;
-  z-index: 9999;
   width: 100vw;
 `}
 icon={ChartMarimekko}
 on:click={() => {
   hashCount.update((hc) => hc + get(manualHashValue))
 }}>HASH</Button>
-
-<style>
-  
-</style>
